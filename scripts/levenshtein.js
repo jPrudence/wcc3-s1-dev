@@ -1,4 +1,4 @@
-function levenshtein(string1, string2) {
+function calculateLevenshteinDistance(string1, string2) {
   let previousRow = [];
   let currentRow = [];
   const lengthString1 = string1.length;
