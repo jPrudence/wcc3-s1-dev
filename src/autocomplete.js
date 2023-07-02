@@ -63,6 +63,14 @@ const Autocomplete = () => ({
             historyItemWord
           );
 
+          this.debugMode &&
+            console.log({
+              queryWord,
+              historyItemWord,
+              levenshteinDistance,
+              keywordDistance,
+            });
+
           if (levenshteinDistance < keywordDistance) {
             keywordDistance = levenshteinDistance;
           }
@@ -75,7 +83,7 @@ const Autocomplete = () => ({
           Math.min(
             this.maxLevenshteinDistance,
             preparedQuery.length,
-            preparedHistoryItem.length
+            preparedHistoryItem.length / 2
           );
 
         if (isAcceptableDistance) {
