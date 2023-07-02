@@ -6,11 +6,11 @@ Live demo: [https://dev-s1-ekipa.netlify.app](https://dev-s1-ekipa.netlify.app)
 
 This library was developed for the `Weekly Coding Challenge` 3th edition organized by Teckzara Community.
 
-### Usage
+### Demo with empty search history
 
 Open `index.html` in your web browser to see the Autocomplete library in action.
 
-### Demo
+### Demo with pre-populated search history
 
 The Autocomplete library comes with a demo HTML file called `demo.html`, which you can use to test the functionality. In the demo file, there is an existing search history with the following queries:
 
@@ -30,7 +30,7 @@ Live demo: [https://dev-s1-ekipa.netlify.app/demo.html](https://dev-s1-ekipa.net
 - Uses the Levenshtein distance algorithm to calculate the similarity between search queries.
 - Saves search queries to local storage for persistence.
 
-### Usage
+### Usage in your project
 
 To use the Autocomplete library, follow these steps:
 
@@ -38,7 +38,7 @@ To use the Autocomplete library, follow these steps:
 
 ```html
 <link rel="stylesheet" href="./src/autocomplete.css" />
-<script src="autocomplete.js"></script>
+<script src="./src/autocomplete.js"></script>
 ```
 
 2. Initialize the Autocomplete library by calling the `init` method with the ID of the form element that contains the autocomplete functionality:
