@@ -4,27 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Autocomplet</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./src/autocomplete.css" />
   </head>
   <body>
     <form id="form-autocomplete">
       <div class="form-control">
-        <input type="text" id="input-search" placeholder="Rechercher..." />
-        <button type="submit" id="btn-search">
+        <input type="text" class="input-search" placeholder="Rechercher..." />
+        <button type="submit" class="btn-search">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#8b8b8b" d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z"/></svg>
       </div>
 
-      <div id="autocomplete-results">
-        <ul id="autocomplete-results-list">
-          <li>
-            <span class="autocomplete-results-list-match">Test</span> search
-          </li>
-        </ul>
+      <div class="autocomplete-results">
+        <ul class="autocomplete-results-list"></ul>
       </div>
     </form>
 
-    <script src="scripts/levenshtein.js"></script>
-    <script src="scripts/main.js"></script>
-    <script src="scripts/demo.js"></script>
+    <script src="./src/autocomplete.js"></script>
+    <script>
+      const searchAutocomplete = Autocomplete().init("form-autocomplete");
+    </script>
   </body>
 </html>

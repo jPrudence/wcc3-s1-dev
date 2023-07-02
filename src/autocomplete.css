@@ -17,14 +17,14 @@ body {
   padding: 0 10px;
 }
 
-#form-autocomplete #input-search {
+#form-autocomplete .input-search {
   height: 40px;
   width: 100%;
   border: none;
   outline: none;
 }
 
-#form-autocomplete #btn-search {
+#form-autocomplete .btn-search {
   height: 40px;
   width: 40px;
   border: none;
@@ -33,13 +33,13 @@ body {
   background: #fff;
 }
 
-#form-autocomplete .form-control:has(#input-search:not(:focus)) + #autocomplete-results,
-#form-autocomplete .form-control:has(#input-search:placeholder-shown) + #autocomplete-results,
-#form-autocomplete .form-control:has(#input-search:focus) + #autocomplete-results:not(:has(li)) {
+#form-autocomplete .form-control:has(.input-search:not(:focus)) + .autocomplete-results:not(:hover),
+#form-autocomplete .form-control:has(.input-search:placeholder-shown) + .autocomplete-results,
+#form-autocomplete .form-control:has(.input-search:focus) + .autocomplete-results:not(:has(li)) {
   display: none;
 }
 
-#form-autocomplete #autocomplete-results {
+#form-autocomplete .autocomplete-results {
   position: absolute;
   width: 100%;
   background: #fff;
@@ -48,23 +48,19 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-#form-autocomplete #autocomplete-results-list {
+#form-autocomplete .autocomplete-results-list {
   list-style: none;
   padding: 0;
 }
 
-#form-autocomplete #autocomplete-results-list li {
+#form-autocomplete .autocomplete-results-list li {
   padding: 8px 20px;
   letter-spacing: 1px;
   font-weight: bold;
   transition: 0.2s;
 }
 
-#form-autocomplete #autocomplete-results-list li:hover {
+#form-autocomplete .autocomplete-results-list li:hover {
   background-color: #f5f5f5;
   cursor: pointer;
-}
-
-#form-autocomplete #autocomplete-results-list li .autocomplete-results-list-match {
-  font-weight: normal;
 }

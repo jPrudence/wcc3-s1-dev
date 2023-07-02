@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demo Autocomplet</title>
+    <link rel="stylesheet" href="./src/autocomplete.css" />
+  </head>
+  <body>
+    <form id="form-autocomplete" data-history-id="demoHistory">
+      <div class="form-control">
+        <input type="text" class="input-search" placeholder="Rechercher..." />
+        <button type="submit" class="btn-search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#8b8b8b" d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z"/></svg>
+      </div>
+
+      <div class="autocomplete-results">
+        <ul class="autocomplete-results-list"></ul>
+      </div>
+    </form>
+
+    <script src="./src/autocomplete.js"></script>
+    <script>
+      const demoAutocomplete = Autocomplete().init("form-autocomplete");
+
+      demoAutocomplete.debugMode = true;
+
+      demoAutocomplete.saveSearchQueryToHistory("Macbook 2023");
+      demoAutocomplete.saveSearchQueryToHistory("Macbook 2023 Pro Max");
+      demoAutocomplete.saveSearchQueryToHistory("anana sy hena");
+      demoAutocomplete.saveSearchQueryToHistory("anana sy ovy ary hena");
+      demoAutocomplete.saveSearchQueryToHistory("hena sy anana");
+
+      demoAutocomplete.getSuggestions("Makbook pro 2023 max");
+      demoAutocomplete.getSuggestions("Makbook pro 2023 max max");
+      demoAutocomplete.getSuggestions("Makbook pro 2023");
+      demoAutocomplete.getSuggestions("anana hena");
+      demoAutocomplete.getSuggestions("hena a");
+      demoAutocomplete.getSuggestions("anana");
+
+    </script>
+  </body>
+</html>
