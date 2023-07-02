@@ -1,6 +1,7 @@
 const Autocomplete = () => ({
   debugMode: false, // boolean
   maxLevenshteinDistance: 8, // number
+  maxLenghtMarge: 1.5, // number
   formAutocomplete: null, // htmlElement
   inputSearchElement: null, // htmlElement
   btnSearchElement: null, // htmlElement
@@ -44,6 +45,14 @@ const Autocomplete = () => ({
 
     for (const searchHistoryItem of this.searchHistory) {
       let preparedHistoryItem = this.prepareKeyword(searchHistoryItem);
+
+      // not suggest history item if * maxLenghtMarge of its length is less than the length of the query
+      if (
+        searchHistoryItem.length * this.maxLenghtMarge <
+        preparedQuery.length
+      ) {
+        continue;
+      }
 
       if (preparedHistoryItem.includes(preparedQuery)) {
         suggestions.push(preparedHistoryItem);
