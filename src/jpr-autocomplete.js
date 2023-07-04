@@ -2,6 +2,7 @@ const Autocomplete = () => ({
   debugMode: false, // boolean
   maxLevenshteinDistance: 8, // number
   maxLenghtMarge: 1, // number
+  maxSuggestionsCount: 10, // number
   formAutocomplete: null, // htmlElement
   inputSearchElement: null, // htmlElement
   previewElement: null, // htmlElement
@@ -127,7 +128,9 @@ const Autocomplete = () => ({
 
     this.debugMode && console.log({ newSuggestions });
 
-    return newSuggestions.sort((a, b) => a.length - b.length);
+    return newSuggestions
+      .sort((a, b) => a.length - b.length)
+      .slice(0, this.maxSuggestionsCount);
   },
 
   setEventListenerForAutocompleteSuggestions() {
