@@ -17,7 +17,7 @@ form.jpr-autocomplete .form-control {
   padding: 0 4px 0 10px;
 }
 
-form.jpr-autocomplete .jpr-autocomplete-input-search {
+form.jpr-autocomplete input.jpr-autocomplete-input-search {
   height: 40px;
   width: 100%;
   border: none;
@@ -34,12 +34,16 @@ form.jpr-autocomplete .jpr-autocomplete-preview {
   z-index: 1;
 }
 
-form.jpr-autocomplete .jpr-autocomplete-input-search,
+form.jpr-autocomplete input.jpr-autocomplete-input-search,
 form.jpr-autocomplete .jpr-autocomplete-preview {
   font-size: 1rem;
 }
 
-form.jpr-autocomplete .jpr-autocomplete-btn-search {
+form.jpr-autocomplete input.jpr-autocomplete-input-search:not(:focus) + .jpr-autocomplete-preview {
+  display: none;
+}
+
+form.jpr-autocomplete button.jpr-autocomplete-btn-search {
   height: 36px;
   width: 36px;
   margin-top: 3px;
@@ -51,24 +55,24 @@ form.jpr-autocomplete .jpr-autocomplete-btn-search {
   transition: 0.3s;
 }
 
-form.jpr-autocomplete .jpr-autocomplete-btn-search:hover {
+form.jpr-autocomplete button.jpr-autocomplete-btn-search:hover {
   background-color: #f5f5f5;
   transition: 0.3s;
 }
 
 form.jpr-autocomplete
-  .form-control:has(.jpr-autocomplete-input-search:not(:focus))
-  + .jpr-autocomplete-suggestions:not(:hover),
+  .form-control:has(input.jpr-autocomplete-input-search:not(:focus))
+  + ul.jpr-autocomplete-suggestions:not(:hover),
 form.jpr-autocomplete
-  .form-control:has(.jpr-autocomplete-input-search:placeholder-shown)
-  + .jpr-autocomplete-suggestions,
+  .form-control:has(input.jpr-autocomplete-input-search:placeholder-shown)
+  + ul.jpr-autocomplete-suggestions,
 form.jpr-autocomplete
-  .form-control:has(.jpr-autocomplete-input-search:focus)
-  + .jpr-autocomplete-suggestions:not(:has(li)) {
+  .form-control:has(input.jpr-autocomplete-input-search:focus)
+  + ul.jpr-autocomplete-suggestions:not(:has(li)) {
   display: none;
 }
 
-form.jpr-autocomplete .jpr-autocomplete-suggestions {
+form.jpr-autocomplete ul.jpr-autocomplete-suggestions {
   list-style: none;
   padding: 15px 0;
   position: absolute;
@@ -82,38 +86,42 @@ form.jpr-autocomplete .jpr-autocomplete-suggestions {
   overflow-y: auto;
 }
 
-form.jpr-autocomplete .jpr-autocomplete-suggestions::-webkit-scrollbar {
+form.jpr-autocomplete ul.jpr-autocomplete-suggestions::-webkit-scrollbar {
   width: 5px;
 }
 
-form.jpr-autocomplete .jpr-autocomplete-suggestions::-webkit-scrollbar-thumb {
+form.jpr-autocomplete ul.jpr-autocomplete-suggestions::-webkit-scrollbar-thumb {
   background-color: #ccc;
   border-radius: 5px;
 }
 
-form.jpr-autocomplete .jpr-autocomplete-suggestions li {
+form.jpr-autocomplete ul.jpr-autocomplete-suggestions li {
   padding: 8px 20px;
   letter-spacing: 1px;
   font-weight: bold;
   transition: 0.2s;
 }
 
-form.jpr-autocomplete .jpr-autocomplete-suggestions li:hover {
+form.jpr-autocomplete ul.jpr-autocomplete-suggestions li:hover {
   background-color: #f5f5f5;
   cursor: pointer;
 }
 
-form.jpr-autocomplete .jpr-autocomplete-suggestions li .jpr-autocomplete-suggestion-icon {
+form.jpr-autocomplete ul.jpr-autocomplete-suggestions li span.jpr-autocomplete-suggestion-icon {
   margin-right: 5px;
   position: relative;
   top: 2px;
 }
 
-form.jpr-autocomplete .jpr-autocomplete-suggestions li .jpr-autocomplete-suggestion-icon svg {
+form.jpr-autocomplete ul.jpr-autocomplete-suggestions li span.jpr-autocomplete-suggestion-icon svg {
   transition: 1s;
 }
 
-form.jpr-autocomplete .jpr-autocomplete-suggestions li:hover .jpr-autocomplete-suggestion-icon svg {
+form.jpr-autocomplete ul.jpr-autocomplete-suggestions li:hover span.jpr-autocomplete-suggestion-icon svg {
   transition: 0.5s;
   transform: rotate(-360deg) scale(1.3);
+}
+
+form.jpr-autocomplete ul.jpr-autocomplete-suggestions li span.jpr-autocomplete-suggestion-similar {
+  font-weight: normal;
 }

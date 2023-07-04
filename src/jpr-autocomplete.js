@@ -135,11 +135,29 @@ const Autocomplete = () => ({
     });
   },
 
-  updateAutocompleteUi(suggestions) {
-    const newAutocompleteElements = suggestions.map(
-      (suggestion) =>
-        `<li><span class="jpr-autocomplete-suggestion-icon">${this.historyIcon}</span><span class="jpr-autocomplete-suggestion-value">${suggestion}</span></li>`
+  highlightSimilarWordInSuggestion(suggestion, query) {
+    const regex = new RegExp(query, "i");
+    const similarWord = suggestion.match(regex);
+
+    if (!similarWord) {
+      return suggestion;
+    }
+
+    return suggestion.replace(
+      regex,
+      `<span class="jpr-autocomplete-suggestion-similar">${similarWord[0]}</span>`
     );
+  },
+
+  updateAutocompleteUi(suggestions, query) {
+    const newAutocompleteElements = suggestions.map((suggestion) => {
+      hihglightedSuggestion = this.highlightSimilarWordInSuggestion(
+        suggestion,
+        query
+      );
+
+      return `<li><span class="jpr-autocomplete-suggestion-icon">${this.historyIcon}</span><span class="jpr-autocomplete-suggestion-value">${hihglightedSuggestion}</span></li>`;
+    });
 
     this.autocompleteSuggestionsElement.innerHTML =
       newAutocompleteElements.join("");
@@ -168,7 +186,7 @@ const Autocomplete = () => ({
 
     const suggestions = this.getSuggestions(query);
 
-    this.updateAutocompleteUi(suggestions);
+    this.updateAutocompleteUi(suggestions, query);
     this.updateAutocompletePreviewUi(suggestions, query);
   },
 
