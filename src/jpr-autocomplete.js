@@ -34,7 +34,7 @@ const Autocomplete = () => ({
   },
 
   saveSearchQueryToHistory(query) {
-    if (!this.searchHistory.includes(query)) {
+    if (query.length && !this.searchHistory.includes(query)) {
       this.searchHistory.push(query);
       localStorage.setItem(
         this.searchHistoryId,
