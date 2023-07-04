@@ -37,8 +37,8 @@ To use the Autocomplete library, follow these steps:
 1. Include the Autocomplete library in your HTML file:
 
 ```html
-<link rel="stylesheet" href="./src/autocomplete.css" />
-<script src="./src/autocomplete.js"></script>
+<link rel="stylesheet" href="./src/jpr-autocomplete.css" />
+<script src="./src/jpr-autocomplete.js"></script>
 ```
 
 2. Initialize the Autocomplete library by calling the `init` method with the ID of the form element that contains the autocomplete functionality:
@@ -54,18 +54,16 @@ Make sure to replace `"form-autocomplete"` with the actual ID of your form eleme
 ```html
 <form id="form-autocomplete">
   <div class="form-control">
-    <input type="text" class="input-search" placeholder="Rechercher..." />
-    <button type="submit" class="btn-search">
+    <input type="text" class="jpr-autocomplete-input-search" placeholder="Rechercher..." />
+    <button type="submit" class="jpr-autocomplete-btn-search">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#8b8b8b" d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z"/></svg>
   </div>
 
-  <div class="autocomplete-results">
-    <ul class="autocomplete-results-list"></ul>
-  </div>
+  <ul class="jpr-autocomplete-suggestions"></ul>
 </form>
 ```
 
-Ensure that you have an input field with the class `"input-search"`, an unordered list with the class `"autocomplete-results-list"`, and optionally, a button with the class `"btn-search"` for submitting the form.
+Ensure that you have an input field with the class `"jpr-autocomplete-input-search"`, an unordered list with the class `"jpr-autocomplete-suggestions"`, and optionally, a button with the class `"jpr-autocomplete-btn-search"` for submitting the form.
 
 4. Customize the library (optional):
 

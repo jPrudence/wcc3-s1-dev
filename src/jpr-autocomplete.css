@@ -1,0 +1,119 @@
+form.jpr-autocomplete {
+  font-family: sans-serif;
+}
+
+form.jpr-autocomplete {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+  top: 20px;
+}
+
+form.jpr-autocomplete .form-control {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  display: flex;
+  padding: 0 4px 0 10px;
+}
+
+form.jpr-autocomplete .jpr-autocomplete-input-search {
+  height: 40px;
+  width: 100%;
+  border: none;
+  outline: none;
+  z-index: 2;
+  background-color: transparent;
+}
+
+form.jpr-autocomplete .jpr-autocomplete-preview {
+  position: absolute;
+  top: 13px;
+  left: 13px;
+  opacity: 0.3;
+  z-index: 1;
+}
+
+form.jpr-autocomplete .jpr-autocomplete-input-search,
+form.jpr-autocomplete .jpr-autocomplete-preview {
+  font-size: 1rem;
+}
+
+form.jpr-autocomplete .jpr-autocomplete-btn-search {
+  height: 36px;
+  width: 36px;
+  margin-top: 3px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  background: #fff;
+  transition: 0.3s;
+}
+
+form.jpr-autocomplete .jpr-autocomplete-btn-search:hover {
+  background-color: #f5f5f5;
+  transition: 0.3s;
+}
+
+form.jpr-autocomplete
+  .form-control:has(.jpr-autocomplete-input-search:not(:focus))
+  + .jpr-autocomplete-suggestions:not(:hover),
+form.jpr-autocomplete
+  .form-control:has(.jpr-autocomplete-input-search:placeholder-shown)
+  + .jpr-autocomplete-suggestions,
+form.jpr-autocomplete
+  .form-control:has(.jpr-autocomplete-input-search:focus)
+  + .jpr-autocomplete-suggestions:not(:has(li)) {
+  display: none;
+}
+
+form.jpr-autocomplete .jpr-autocomplete-suggestions {
+  list-style: none;
+  padding: 15px 0;
+  position: absolute;
+  width: 100%;
+  background: #fff;
+  border-radius: 5px;
+  margin-top: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-height: 40vh;
+  min-height: 34px;
+  overflow-y: auto;
+}
+
+form.jpr-autocomplete .jpr-autocomplete-suggestions::-webkit-scrollbar {
+  width: 5px;
+}
+
+form.jpr-autocomplete .jpr-autocomplete-suggestions::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 5px;
+}
+
+form.jpr-autocomplete .jpr-autocomplete-suggestions li {
+  padding: 8px 20px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+form.jpr-autocomplete .jpr-autocomplete-suggestions li:hover {
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
+
+form.jpr-autocomplete .jpr-autocomplete-suggestions li .jpr-autocomplete-suggestion-icon {
+  margin-right: 5px;
+  position: relative;
+  top: 2px;
+}
+
+form.jpr-autocomplete .jpr-autocomplete-suggestions li .jpr-autocomplete-suggestion-icon svg {
+  transition: 1s;
+}
+
+form.jpr-autocomplete .jpr-autocomplete-suggestions li:hover .jpr-autocomplete-suggestion-icon svg {
+  transition: 0.5s;
+  transform: rotate(-360deg) scale(1.3);
+}
