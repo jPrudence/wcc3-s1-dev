@@ -1,7 +1,7 @@
 const Autocomplete = () => ({
   debugMode: false, // boolean
   maxLevenshteinDistance: 8, // number
-  maxLenghtMarge: 1.5, // number
+  maxLenghtMarge: 1, // number
   formAutocomplete: null, // htmlElement
   inputSearchElement: null, // htmlElement
   previewElement: null, // htmlElement
@@ -9,6 +9,8 @@ const Autocomplete = () => ({
   autocompleteSuggestionsElement: null, // htmlElement
   searchHistoryId: "searchHistory", // string
   searchHistory: [], // Array
+  currentSuggestions: [], // Array
+  currentQuery: "", // string
   historyIcon: `<svg xmlns="http://www.w3.org/2000/svg" width="14" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M4.929 17.657a1 1 0 0 0 0 1.414c3.905 3.905 10.237 3.905 14.142 0c3.905-3.905 3.905-10.237 0-14.142c-3.905-3.905-10.237-3.905-14.142 0A9.962 9.962 0 0 0 2.049 11H1a1 1 0 0 0-.707 1.707l2 2l.002.002a.997.997 0 0 0 1.413-.003l2-1.999A1 1 0 0 0 5 11h-.938a8 8 0 1 1 2.28 6.657a1 1 0 0 0-1.413 0ZM10 8a1 1 0 1 1 2 0v4h4a1 1 0 1 1 0 2h-5a1 1 0 0 1-1-1V8Z" clip-rule="evenodd"/></svg>`, // string
   searchCallback: (query) => {
     console.log("Search query: ", query);
@@ -33,9 +35,13 @@ const Autocomplete = () => ({
       JSON.parse(localStorage.getItem(this.searchHistoryId)) || [];
   },
 
-  saveSearchQueryToHistory(query) {
-    if (query.length && !this.searchHistory.includes(query)) {
-      this.searchHistory.push(query);
+  saveSearchQueryToHistory() {
+    if (
+      this.currentQuery.length &&
+      !this.searchHistory.includes(this.currentQuery)
+    ) {
+      this.searchHistory.push(this.currentQuery);
+
       localStorage.setItem(
         this.searchHistoryId,
         JSON.stringify(this.searchHistory)
@@ -43,9 +49,9 @@ const Autocomplete = () => ({
     }
   },
 
-  getSuggestions(query) {
-    const suggestions = [];
-    const preparedQuery = this.prepareKeyword(query);
+  getSuggestions() {
+    const newSuggestions = [];
+    const preparedQuery = this.prepareKeyword(this.currentQuery);
     const queryWords = preparedQuery.split(" ");
 
     for (const searchHistoryItem of this.searchHistory) {
@@ -60,7 +66,7 @@ const Autocomplete = () => ({
       }
 
       if (preparedHistoryItem.includes(preparedQuery)) {
-        suggestions.push(preparedHistoryItem);
+        newSuggestions.push(preparedHistoryItem);
         continue;
       }
 
@@ -108,15 +114,15 @@ const Autocomplete = () => ({
               preparedQuery,
             });
 
-          suggestions.push(preparedHistoryItem);
+          newSuggestions.push(preparedHistoryItem);
           break;
         }
       }
     }
 
-    this.debugMode && console.log({ suggestions });
+    this.debugMode && console.log({ newSuggestions });
 
-    return suggestions.sort((a, b) => a.length - b.length);
+    return newSuggestions.sort((a, b) => a.length - b.length);
   },
 
   setEventListenerForAutocompleteSuggestions() {
@@ -126,10 +132,7 @@ const Autocomplete = () => ({
 
         this.inputSearchElement.value = newQuery;
 
-        this.handleSearchQuery(newQuery);
-
-        this.inputSearchElement.focus();
-
+        this.handleNewSearchQuery();
         this.searchCallback(newQuery);
       });
     });
@@ -149,15 +152,17 @@ const Autocomplete = () => ({
     );
   },
 
-  updateAutocompleteUi(suggestions, query) {
-    const newAutocompleteElements = suggestions.map((suggestion) => {
-      hihglightedSuggestion = this.highlightSimilarWordInSuggestion(
-        suggestion,
-        query
-      );
+  updateAutocompleteUi() {
+    const newAutocompleteElements = this.currentSuggestions.map(
+      (suggestion) => {
+        hihglightedSuggestion = this.highlightSimilarWordInSuggestion(
+          suggestion,
+          this.currentQuery
+        );
 
-      return `<li><span class="jpr-autocomplete-suggestion-icon">${this.historyIcon}</span><span class="jpr-autocomplete-suggestion-value">${hihglightedSuggestion}</span></li>`;
-    });
+        return `<li><span class="jpr-autocomplete-suggestion-icon">${this.historyIcon}</span><span class="jpr-autocomplete-suggestion-value">${hihglightedSuggestion}</span></li>`;
+      }
+    );
 
     this.autocompleteSuggestionsElement.innerHTML =
       newAutocompleteElements.join("");
@@ -165,9 +170,9 @@ const Autocomplete = () => ({
     this.setEventListenerForAutocompleteSuggestions();
   },
 
-  updateAutocompletePreviewUi(suggestions, query) {
-    const similarSuggestion = suggestions.find((suggestion) =>
-      suggestion.startsWith(query)
+  updateAutocompletePreviewUi() {
+    const similarSuggestion = this.currentSuggestions.find((suggestion) =>
+      suggestion.startsWith(this.currentQuery)
     );
 
     if (similarSuggestion) {
@@ -177,29 +182,54 @@ const Autocomplete = () => ({
     }
   },
 
-  handleSearchQuery(query) {
-    if (!query) {
+  handleNewSearchQuery() {
+    this.syncQueryWithInputValue();
+
+    if (!this.currentQuery) {
       this.autocompleteSuggestionsElement.innerHTML = "";
       this.previewElement.innerText = "";
       return;
     }
 
-    const suggestions = this.getSuggestions(query);
+    this.currentSuggestions = this.getSuggestions();
 
-    this.updateAutocompleteUi(suggestions, query);
-    this.updateAutocompletePreviewUi(suggestions, query);
+    this.updateAutocompleteUi();
+    this.updateAutocompletePreviewUi();
+  },
+
+  syncQueryWithInputValue() {
+    this.currentQuery = this.inputSearchElement.value;
   },
 
   handleSubmission(e) {
     e.preventDefault();
 
-    var query = this.inputSearchElement.value;
-    this.saveSearchQueryToHistory(query);
+    this.syncQueryWithInputValue();
+    this.saveSearchQueryToHistory();
+  },
+
+  selectFirstSuggestion() {
+    if (this.currentSuggestions.length) {
+      const firstSuggestion = this.currentSuggestions[0];
+
+      if (firstSuggestion.length > this.currentQuery.length) {
+        this.inputSearchElement.value = firstSuggestion;
+        this.handleNewSearchQuery();
+      }
+    }
   },
 
   initEventListeners() {
+    this.inputSearchElement.addEventListener("keydown", (e) => {
+      if (e.key === "Tab") {
+        e.preventDefault();
+
+        this.selectFirstSuggestion();
+      }
+    });
+
     this.inputSearchElement.addEventListener("input", (e) =>
-      this.handleSearchQuery(e.target.value)
+      this.handleNewSearchQuery()
     );
 
     if (this.btnSearchElement) {

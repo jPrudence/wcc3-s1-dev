@@ -69,7 +69,15 @@ form.jpr-autocomplete
 form.jpr-autocomplete
   .form-control:has(input.jpr-autocomplete-input-search:focus)
   + ul.jpr-autocomplete-suggestions:not(:has(li)) {
-  display: none;
+  height: 0px;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  transition: 0.2s;
+  pointer-events: none;
+  user-select: none;
+  transform-origin: bottom;
+  opacity: 0;
 }
 
 form.jpr-autocomplete ul.jpr-autocomplete-suggestions {
@@ -84,6 +92,7 @@ form.jpr-autocomplete ul.jpr-autocomplete-suggestions {
   max-height: 40vh;
   min-height: 34px;
   overflow-y: auto;
+  transition: 0.2s;
 }
 
 form.jpr-autocomplete ul.jpr-autocomplete-suggestions::-webkit-scrollbar {
