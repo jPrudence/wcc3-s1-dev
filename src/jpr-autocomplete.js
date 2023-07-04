@@ -207,7 +207,7 @@ const Autocomplete = () => ({
   },
 
   syncQueryWithInputValue() {
-    this.currentQuery = this.inputSearchElement.value;
+    this.currentQuery = this.inputSearchElement.value.trim();
   },
 
   handleSubmission(e) {
